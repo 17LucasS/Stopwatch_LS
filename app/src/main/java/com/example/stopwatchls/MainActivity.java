@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+    StopwatchFragment stopwatchFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,10 +26,11 @@ public class MainActivity extends AppCompatActivity {
     private void initializationOfVariables(){
         Toolbar toolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
-        StopwatchFragment stopwatchFragment = new StopwatchFragment();
+        if (stopwatchFragment==null){
+            stopwatchFragment = new StopwatchFragment();
+        }
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.frame_id,stopwatchFragment);
-
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         transaction.commit();
     }
@@ -37,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
         Log.v("OnDestroy MAIN","OnDestroy MAIN");
     }
 }
