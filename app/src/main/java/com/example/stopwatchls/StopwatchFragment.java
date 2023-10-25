@@ -13,6 +13,7 @@ import android.widget.Toast;
 import java.lang.ref.WeakReference;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class StopwatchFragment extends Fragment implements View.OnClickListener,DataFromStopwatchInterface {
     Button startButton;
@@ -22,8 +23,6 @@ public class StopwatchFragment extends Fragment implements View.OnClickListener,
     StopwachRunnable stopwachRunnable;
     TextView displayStoperwatch;
     private WeakReference<Activity> weakActivity;
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -41,7 +40,7 @@ public class StopwatchFragment extends Fragment implements View.OnClickListener,
     public void startStopwatch(){
         if (service==null){
             service = Executors.newSingleThreadExecutor();
-            stopwachRunnable = new StopwachRunnable(weakActivity,this);
+            stopwachRunnable = new StopwachRunnable(new WeakReference<>(this));
             stopwachRunnable.setEndMillisecond(System.currentTimeMillis());
         }
         stopwachRunnable.setDoRunning(true);
@@ -52,7 +51,6 @@ public class StopwatchFragment extends Fragment implements View.OnClickListener,
         if (v.equals(startButton)){
             startStopwatch();
             Toast.makeText(getContext(),"START",Toast.LENGTH_SHORT).show();
-
         }
         if (v.equals(stopButton)){
             Toast.makeText(getContext(),"STOP",Toast.LENGTH_SHORT).show();
@@ -65,7 +63,23 @@ public class StopwatchFragment extends Fragment implements View.OnClickListener,
     @Override
     public void getValueStopwatch(String houer, String minutes, String second, String milliseconds){
         displayStoperwatch.setText(houer+":"+minutes+":"+second+":"+milliseconds);
-
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        service.shutdown();
+        stopwachRunnable.setDoRunning(false);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        try {
+            if (!service.awaitTermination(40, TimeUnit.MILLISECONDS));
+            service.shutdownNow();
+        } catch (InterruptedException e) {
+            service.shutdownNow();
+        }
+    }
 }
