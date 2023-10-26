@@ -9,11 +9,13 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.View;
+
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     Fragment fragment;
     private static final String CURRENT_FRAGMENT = "CURRENT_FRAGMENT";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,29 +23,31 @@ public class MainActivity extends AppCompatActivity {
         initializationOfVariables(savedInstanceState);
 
 
-
     }
-    private void initializationOfVariables(Bundle saveinstanceState){
+
+    private void initializationOfVariables(Bundle saveinstanceState) {
         Toolbar toolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
-        if (saveinstanceState==null){
+        if (saveinstanceState == null) {
             fragment = new StopwatchFragment();
-        }else {
-            fragment = getSupportFragmentManager().getFragment(saveinstanceState,CURRENT_FRAGMENT);
+        } else {
+            fragment = getSupportFragmentManager().getFragment(saveinstanceState, CURRENT_FRAGMENT);
         }
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container,fragment);
+        transaction.replace(R.id.fragment_container, fragment);
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         transaction.commit();
     }
+
     public void floatingOnClick(View view) {
         fragment = new SaveFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container,fragment);
+        transaction.replace(R.id.fragment_container, fragment);
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -57,8 +61,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
-
 
 
 }

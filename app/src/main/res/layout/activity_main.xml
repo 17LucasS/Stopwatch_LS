@@ -33,12 +33,12 @@
             android:id="@+id/floatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            app:srcCompat="@android:drawable/ic_menu_save"
             android:layout_gravity="bottom|end"
-            android:contentDescription="@string/floatingButtonsave"
             android:layout_margin="20dp"
-            android:onClick="floatingOnClick"/>
+            android:clickable="true"
+            android:contentDescription="@string/floatingButtonsave"
+            android:onClick="floatingOnClick"
+            app:srcCompat="@android:drawable/ic_menu_save" />
 
     </FrameLayout>
 
