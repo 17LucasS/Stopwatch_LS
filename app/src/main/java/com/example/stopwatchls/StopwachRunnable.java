@@ -19,7 +19,7 @@ public class StopwachRunnable implements Runnable {
 
     @Override
     public void run() {
-        while (doRunning) {
+        if (doRunning) {
             long startMillisecond = System.currentTimeMillis();
             tMillisecond = startMillisecond - endMillisecond;
             int hours = (int) (tMillisecond / 3600000);
@@ -30,7 +30,7 @@ public class StopwachRunnable implements Runnable {
             if (dataFromStopwatchInterface.get() != null) {
                 handler.post(() -> dataFromStopwatchInterface.get().getValueStopwatch(hours, minutes, seconds, milliseconds));
             }
-         handler.postDelayed(this,30);
+            handler.postDelayed(this, 30);
         }
     }
 
