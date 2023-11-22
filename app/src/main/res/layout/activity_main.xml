@@ -36,7 +36,7 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="20dp"
             android:clickable="true"
-            android:contentDescription="@string/floatingButtonsave"
+            android:contentDescription="@string/floating_button_save"
             android:onClick="floatingOnClick"
             app:srcCompat="@android:drawable/ic_menu_save" />
 

@@ -1,18 +1,16 @@
 package com.example.stopwatchls;
 
-import android.app.Activity;
 import android.os.Handler;
 import android.os.Looper;
 
 import java.lang.ref.WeakReference;
 
 public class StopwachRunnable implements Runnable {
-    private Long startMillisecond;
+    private Long tMillisecond;
     private Long endMillisecond;
     private boolean doRunning;
-
-    private WeakReference<DataFromStopwatchInterface> dataFromStopwatchInterface;
-    private Handler handler;
+    private final WeakReference<DataFromStopwatchInterface> dataFromStopwatchInterface;
+    private final Handler handler;
 
     public StopwachRunnable(WeakReference<DataFromStopwatchInterface> dataFromStopwatchInterface) {
         this.dataFromStopwatchInterface = dataFromStopwatchInterface;
@@ -22,21 +20,17 @@ public class StopwachRunnable implements Runnable {
     @Override
     public void run() {
         while (doRunning) {
-            startMillisecond = System.currentTimeMillis();
-            long tMillisecond = startMillisecond - endMillisecond;
+            long startMillisecond = System.currentTimeMillis();
+            tMillisecond = startMillisecond - endMillisecond;
             int hours = (int) (tMillisecond / 3600000);
             int minutes = (int) ((tMillisecond % 3600000) / 60000);
             int seconds = (int) ((tMillisecond % 60000) / 1000);
-            int milliseconds = (int) (tMillisecond % 1000)/10;
+            int milliseconds = (int) (tMillisecond % 1000) / 10;
 
             if (dataFromStopwatchInterface.get() != null) {
-                handler.post(() -> dataFromStopwatchInterface.get().getValueStopwatch(hours, minutes,seconds, milliseconds));
+                handler.post(() -> dataFromStopwatchInterface.get().getValueStopwatch(hours, minutes, seconds, milliseconds));
             }
-            try {
-                Thread.sleep(30);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+         handler.postDelayed(this,30);
         }
     }
 
@@ -51,4 +45,7 @@ public class StopwachRunnable implements Runnable {
         }
     }
 
+    public Long gettMillisecond() {
+        return tMillisecond;
+    }
 }

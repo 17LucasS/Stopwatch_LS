@@ -21,27 +21,29 @@
 
     <Button
         android:id="@+id/start_button"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/_start_button"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/start_string"
         android:textSize="@dimen/text_size_start_stop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintHorizontal_bias="0.938"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/stopwatch_display"
-        app:layout_constraintVertical_bias="0.25" />
+        app:layout_constraintVertical_bias="0.251" />
 
     <Button
-        android:id="@+id/stop_button"
-        android:layout_width="wrap_content"
+        android:id="@+id/catch_button"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="@string/stop_button"
+        android:layout_marginStart="16dp"
+        android:text="@string/catch_string"
         android:textSize="@dimen/text_size_start_stop"
         app:layout_constraintBottom_toBottomOf="@+id/start_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintHorizontal_bias="0.07"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/start_button"
         app:layout_constraintVertical_bias="0.0" />

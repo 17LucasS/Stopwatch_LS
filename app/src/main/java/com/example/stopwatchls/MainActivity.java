@@ -8,12 +8,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    Fragment fragment;
     private static final String CURRENT_FRAGMENT = "CURRENT_FRAGMENT";
 
     @Override
@@ -21,30 +21,30 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initializationOfVariables(savedInstanceState);
-
-
+        Log.v("MAIN", "ONCreate");
     }
 
-    private void initializationOfVariables(Bundle saveinstanceState) {
+    private void initializationOfVariables(Bundle saveInstanceState) {
         Toolbar toolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
-        if (saveinstanceState == null) {
+        Fragment fragment;
+        if (saveInstanceState == null) {
             fragment = new StopwatchFragment();
         } else {
-            fragment = getSupportFragmentManager().getFragment(saveinstanceState, CURRENT_FRAGMENT);
+            fragment = getSupportFragmentManager().getFragment(saveInstanceState, CURRENT_FRAGMENT);
         }
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        assert fragment != null;
         transaction.replace(R.id.fragment_container, fragment);
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         transaction.commit();
     }
 
     public void floatingOnClick(View view) {
-        fragment = new SaveFragment();
+        SaveFragment saveFragment = new SaveFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, fragment);
+        transaction.replace(R.id.fragment_container, saveFragment);
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        transaction.addToBackStack(null);
         transaction.commit();
     }
 
@@ -59,8 +59,31 @@ public class MainActivity extends AppCompatActivity {
                 break;
             }
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.v("Main", "OnStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.v("Main", "OnDestroy");
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.v("Main", "OnResume");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.v("Main", "Restart");
+    }
 
 }

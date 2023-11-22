@@ -3,10 +3,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Save fragment</string>
 
-    <string name="floatingButtonsave">Save</string>
-    <string name="_start_button">Start</string>
-    <string name="stop_button">Stop</string>
-    <string name="resume_button">Resume</string>
+    <string name="floating_button_save">Save</string>
+    <string name="start_string">Start</string>
+    <string name="catch_string">Pomiar</string>
+    <string name="stop_string">Stop</string>
+    <string name="resume_string">Wznów</string>
+    <string name="reset_string">Resetuj</string>
     <string name="string_time">%02d:%02d:%02d:%02d</string>
     <string name="default_settings_text_stopwatch">00:00:00:00</string>
 </resources>
